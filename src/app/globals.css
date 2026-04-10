@@ -1,26 +1,178 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@plugin "@tailwindcss/typography";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ─── New Elegant Palette ─── */
+  --color-vanilla: #F1EADA;
+  --color-tobacco: #B59E7D;
+  --color-tobacco-dark: #9A8565;
+  --color-tobacco-light: #C8B494;
+  --color-mountain: #AAA396;
+  --color-mountain-light: #C4BEB4;
+  --color-mahogany: #584738;
+  --color-mahogany-light: #6D5B4A;
+  --color-sand: #CEC1A8;
+  --color-sand-light: #DDD3BF;
+
+  /* Legacy aliases for compatibility */
+  --color-gold: #B59E7D;
+  --color-gold-dark: #9A8565;
+  --color-gold-light: #C8B494;
+  --color-dark: #584738;
+  --color-dark-light: #6D5B4A;
+  --color-sage: #F1EADA;
+  --color-olive: #AAA396;
+  --color-olive-dark: #8F8879;
+
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base Styles ─── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  color: #4A4038;
+  background: #FDFAF5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: #584738;
+}
+
+::selection {
+  background: #B59E7D;
+  color: #fff;
+}
+
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1EADA;
+}
+::-webkit-scrollbar-thumb {
+  background: #B59E7D;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9A8565;
+}
+
+/* ─── Accordion Animation ─── */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.accordion-content.open {
+  grid-template-rows: 1fr;
+}
+.accordion-content > div {
+  overflow: hidden;
+}
+
+/* ─── Elegant Fade Animations ─── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children animation */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(2) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+.stagger-children.visible > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+
+/* ─── Elegant Link Underline ─── */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #B59E7D;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ─── Decorative Divider ─── */
+.elegant-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #B59E7D, transparent);
+}
+
+/* ─── Parallax shimmer on hover ─── */
+.shimmer-hover {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.6s ease;
+  z-index: 1;
+}
+.shimmer-hover:hover::before {
+  left: 120%;
+}
+
+/* ─── Prose overrides for legal pages ─── */
+.prose-legal h2 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: #584738;
+}
+
+/* ─── Product card sale badge ─── */
+.price-old {
+  text-decoration: line-through;
+  color: #AAA396;
+}
+
+/* ─── Glassmorphism card ─── */
+.glass-card {
+  background: rgba(241, 234, 218, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(181, 158, 125, 0.15);
+}
+
+/* ─── Smooth image reveal ─── */
+.img-reveal {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.img-reveal.visible {
+  clip-path: inset(0 0 0 0);
 }

@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scraped data / build logs
+enriched_data.json
+enriched_missing_final.json
+final_scraped_descriptions.json
+missing_products.json
+orders.json
+public_urls.json
+scraped_content_final.json
+scraped_content_partial.json
+scraped_data_batch1.json
+scraped_descriptions.json
+build-error.log
+build_output.txt
+page.html
